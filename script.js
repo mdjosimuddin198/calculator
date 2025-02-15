@@ -20,8 +20,11 @@ result.addEventListener("click", () => {
   // let output = eval(displayValue.value);
   // console.log(output);
   try {
-    let output = eval(displayValue.value);
-    displayValue.value = output;
+    // let output = eval(displayValue.value);
+    // displayValue.value = output;
+    let sanitizedInput = displayValue.value.replace(/[^0-9+\-*/().]/g, ""); // Prevents malicious input
+    let output2 = Function(`"use strict"; return (${sanitizedInput})`)();
+    displayValue.value = output2;
   } catch (error) {
     displayValue.value = "Error";
   }
